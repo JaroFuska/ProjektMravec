@@ -1,7 +1,7 @@
 package sample;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ public class Ant extends Tile{
     private ArrayList<Item> items;
     private int direction;
     private double speed;
-    private final double DEFAULT_SPEED = 12;
+    private final double DEFAULT_SPEED = 5;
 
 
     public Ant(int x, int y, double size) {
@@ -18,7 +18,7 @@ public class Ant extends Tile{
         this.y = y;
         this.items = new ArrayList<>();
         this.direction = 0;
-        this.view = new Rectangle(size * 0.8, size * 0.8, Color.BLUE);
+        this.view =  new ImageView(new Image("/pics/ant.png", size * 0.8, size * 0.8, false, true));
         this.view.setTranslateX((double) x * size + 0.2 * size);
         this.view.setTranslateY((double) y * size + 0.2 * size);
         this.speed = DEFAULT_SPEED;

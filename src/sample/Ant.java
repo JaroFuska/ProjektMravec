@@ -16,15 +16,15 @@ public class Ant extends Tile{
     private double size;
 
     public Ant(int x, int y, double size) {
+        this.size = 0.8 * size;
         this.x = x;
         this.y = y;
         this.items = new ArrayList<>();
         this.direction = 0;
-        this.view =  new ImageView(new Image("file:pics/ant.png", size * 0.8, size * 0.8, false, true));
+        this.view =  new ImageView(new Image("file:pics/ant.png", this.size, this.size, false, true));
         this.view.setTranslateX((double) x * size + 0.2 * size);
         this.view.setTranslateY((double) y * size + 0.2 * size);
         this.speed = DEFAULT_SPEED;
-        this.size = size;
     }
 
     public double getX() {

@@ -51,6 +51,15 @@ public class Tile {
         return size;
     }
 
+    public double getCenterX() {
+        return view.getTranslateX() + size / 2;
+    }
+
+
+    public double getCenterY() {
+        return view.getTranslateY() + size / 2;
+    }
+
     public boolean isColliding(Tile other){
         return getView().getBoundsInParent().intersects(other.getView().getBoundsInParent());
     }

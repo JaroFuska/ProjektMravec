@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -30,14 +31,11 @@ public class Controller {
 
     public void initMap(File mapFile) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(mapFile.getAbsolutePath()));
-        String firstLine = br.readLine();
-        int rows = Integer.parseInt(firstLine.split(" ")[0]);
-        int cols = Integer.parseInt(firstLine.split(" ")[1]);
-        main.getRoot().setPrefSize(cols * size, rows * size);
         ArrayList<ArrayList<Tile>> tiles = new ArrayList<>();
-        for (int i = 0; i < rows; i++) {
+        int i = 0;
+        String line  = null;
+        while ((line = br.readLine()) != null) {
             tiles.add(new ArrayList<>());
-            String line = br.readLine();
             int j = 0;
             for (char ch : line.toCharArray()
                  ) {
@@ -50,6 +48,7 @@ public class Controller {
                         t = new Empty(j, i, size);
                         break;
                     case 'D':
+                        main.getRoot().getChildren().add(new Empty(j, i, size).getView());
                         t = new Door(j, i, size);
                         break;
                     case 'M':
@@ -66,8 +65,12 @@ public class Controller {
                 main.getRoot().getChildren().add(t.getView());
                 j++;
             }
+            i++;
         }
         br.close();
+        int rows = tiles.size();
+        int cols = tiles.get(0).size();
+        main.getRoot().setPrefSize(cols * size, rows * size);
         level = new Level(tiles);
         ant.getView().toFront();
     }
@@ -127,9 +130,13 @@ public class Controller {
             for (Tile tile:tileList){
                 if(r.intersects(tile.getX()*tile.getSize(), tile.getY()*tile.getSize(), tile.getSize(), tile.getSize())){
                     if(tile instanceof Door){
-                        System.out.println("dvere");
-                        popupWindow.display();
-                        return false;
+                        Point2D rMid = new Point2D(r.getCenterX(), r.getCenterY());
+                        Point2D doorMid = new Point2D(tile.getCenterX(), tile.getCenterY());
+                        if (rMid.distance(doorMid) < size/7) {
+                            System.out.println("dvere");
+                            popupWindow.display();
+                            return false;
+                        }
                     }
                     if(tile instanceof Wall){
                         return true;

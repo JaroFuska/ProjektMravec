@@ -2,6 +2,8 @@ package sample;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
@@ -11,17 +13,18 @@ public class Ant extends Tile{
     private int direction;
     private double speed;
     private final double DEFAULT_SPEED = 5;
-
+    private double size;
 
     public Ant(int x, int y, double size) {
         this.x = x;
         this.y = y;
         this.items = new ArrayList<>();
         this.direction = 0;
-        this.view =  new ImageView(new Image("/pics/ant.png", size * 0.8, size * 0.8, false, true));
+        this.view =  new ImageView(new Image("file:pics/ant.png", size * 0.8, size * 0.8, false, true));
         this.view.setTranslateX((double) x * size + 0.2 * size);
         this.view.setTranslateY((double) y * size + 0.2 * size);
         this.speed = DEFAULT_SPEED;
+        this.size = size;
     }
 
     public double getX() {
@@ -64,6 +67,10 @@ public class Ant extends Tile{
         this.speed = speed;
     }
 
+    public double getSize() {
+        return size;
+    }
+
     public void update(){
         //TODO add colision detection, level ending and pickup items
         //RIGHT
@@ -82,6 +89,7 @@ public class Ant extends Tile{
         else if (direction == 4){
             view.setTranslateY(view.getTranslateY() - speed);
         }
+
     }
 
 

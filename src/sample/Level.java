@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Level {
 
     private ArrayList<ArrayList<Tile>> tiles;
-//    private Tile[][] tiles;
+//  private ArrayList<> tiles;
     private double startX, startY;
     private int width, height;
 //    private ArrayList<Item> obstacles;
@@ -57,6 +57,10 @@ public class Level {
 
     public void setTile(Tile tile, int x, int y){
         tiles.get(x).set(y, tile);
+    }
+
+    public ArrayList<ArrayList<Tile>> getTiles() {
+        return tiles;
     }
 
 

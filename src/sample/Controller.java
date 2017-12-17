@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -12,9 +13,14 @@ public class Controller {
     private double size;
     private Main main;
     private Ant ant;
+    private static final PopupWindow popupWindow;
 
     public Controller() {
 
+    }
+
+    static {
+        popupWindow = new PopupWindow();
     }
 
     public void setSize(double size) {
@@ -91,9 +97,48 @@ public class Controller {
                             ant.update();
                             keyEvent.consume();
                         }
+                        if(collisionDetection()){
+                            if (ant.getDirection() == 1){
+                                ant.setDirection(3);
+                                ant.update();
+                            }
+                            else if (ant.getDirection() == 2){
+                                ant.setDirection(4);
+                                ant.update();
+                            }
+                            else if (ant.getDirection() == 3){
+                                ant.setDirection(1);
+                                ant.update();
+                            }
+                            else if (ant.getDirection() == 4){
+                                ant.setDirection(2);
+                                ant.update();
+                            }
+                        }
                     }
                 };
         return keyEventHandler;
+    }
+
+    public boolean collisionDetection(){
+        Rectangle r = new Rectangle((int)(ant.view.getTranslateX()), (int)(ant.view.getTranslateY()),
+                (int)ant.getSize(), (int)ant.getSize());
+        for (ArrayList<Tile> tileList:level.getTiles()) {
+            for (Tile tile:tileList){
+                if(r.intersects(tile.getX()*tile.getSize(), tile.getY()*tile.getSize(), tile.getSize(), tile.getSize())){
+                    if(tile instanceof Door){
+                        System.out.println("dvere");
+                        popupWindow.display();
+                        return false;
+                    }
+                    if(tile instanceof Wall){
+                        return true;
+                    }
+                }
+            }
+
+        }
+        return false;
     }
 
     public void setMain(Main main) {

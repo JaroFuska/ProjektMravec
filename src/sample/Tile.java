@@ -8,6 +8,7 @@ public class Tile {
 
     protected int x, y;
     protected Node view;
+    protected double size;
 
     public Tile() {
     }
@@ -23,6 +24,7 @@ public class Tile {
         view.setTranslateX((double) x * size);
         view.setTranslateY((double) y * size);
         this.view = view;
+        this.size = size;
     }
 
     public double getX() {
@@ -43,6 +45,10 @@ public class Tile {
 
     public Node getView() {
         return view;
+    }
+
+    public double getSize() {
+        return size;
     }
 
     public boolean isColliding(Tile other){

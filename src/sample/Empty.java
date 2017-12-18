@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 public class Empty extends Tile {
 
     public Empty(int x, int y, double size) {
-        super(x, y, size, new Rectangle(size, size, Color.GRAY));
+        super(x, y, size, new Rectangle(size, size, Color.GREEN));
     }
 
     public Empty() {
